@@ -1,0 +1,69 @@
+% Create a sciposter with a size of 420 x 594 (DIN A 2)
+% \documentclass[a2, plainboxedsections, draft]{sciposter}
+% \documentclass[a2, plainboxedsections]{sciposter}
+\documentclass[a2, plainboxedsections, final]{sciposter}
+
+% Import Packages
+\usepackage{multicol}   % Use multiple columns
+\columnsep=2cm        % Space between columns
+\columnseprule=1pt      % Width of the line inbetween the columns
+
+\usepackage{tikz}       % Nice Graphs
+\usetikzlibrary{arrows.meta}
+\tikzset{>={Latex[width=3mm,length=3mm]}}
+
+\usepackage{listings}   % Code
+\usepackage{array}      % Nice tables
+\usepackage{times}      % Times New Roman
+\usepackage{graphicx}   % Insert Images
+\usepackage[english,ngerman]{babel}     % German symbols (ä, ö, ü, ß)
+\usepackage[utf8]{inputenc}             % UTF-8
+
+% title
+\title{Galaxy Generation}               % Title of the Project
+\author{}              % Name of the author
+\institute{}  % Institute
+\email{}     % Email
+%\leftlogo[1.25]{figs/galaxy}            % Logo left of the title
+%\rightlogo[1]{figs/logos_box}           % Logo right of the title
+
+% Custom section header style
+\usepackage{sectsty}
+\sectionfont{\color{black}\itshape\selectfont\sectionrule{0pt}{0pt}{-4pt}{1pt}}
+
+% footnote
+\conference{\\ \textbf{Jugend Forscht 2018}, Emile Hansmaennel, Theodor-Fliedner-Gymnasium}
+
+% Rest
+\setmargins[2cm] % Page Margin
+
+\begin{document}
+  \maketitle
+
+  \begin{tikzpicture}
+    \node[draw] (galaxy) {galaxy};
+    \node[right of=galaxy, xshift=10cm, draw] (db_actions) {db actions};
+    \node[below of=db_actions, yshift=-5cm, draw] (manager) {manager};
+    \node[below left of=manager, yshift=-5cm, xshift=-5cm, draw] (simulator1) {simulator};
+    \node[below of=manager, yshift=-5cm, draw] (simulator2) {simulator};
+    \node[below right of=manager, yshift=-5cm, xshift=5cm, draw] (simulator3) {simulator};
+    \node[right of=db_actions, xshift=5cm, draw] (database) {database};
+
+    \draw[->] (galaxy) -- (db_actions);
+
+    \draw[->] (manager) to[bend right] node[right, text width=2.5cm] {get a list\\of stars} (db_actions);
+    \draw[->] (db_actions) -- (database);
+
+    \draw[->] (simulator1) -- (manager);
+    \draw[->] (simulator2) -- (manager);
+    \draw[->] (simulator3) -- (manager);
+
+    \draw[<->] (simulator1) to[bend right] (database);
+    \draw[<->] (simulator2) to[bend right] (database);
+
+    \draw[->] (simulator1) to[bend left] (db_actions);
+    \draw[->] (simulator2) to[bend left] (db_actions);
+
+  \end{tikzpicture}
+
+\end{document}
